@@ -1,8 +1,8 @@
 pipeline {
    agent any
    environment {
-      REPOSITORY = 'registry-server:5000'
-      PCC_CONSOLE_URL = "10.160.154.170:8083"
+      REPOSITORY = '192.168.16.100:8085'
+      PCC_CONSOLE_URL = "https://asia-southeast1.cloud.twistlock.com/aws-singapore-961150750"
       CONTAINER_NAME = "ubuntu"
    }
     stages {
