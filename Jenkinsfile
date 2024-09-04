@@ -18,7 +18,7 @@ pipeline {
                   sh ''' 
                   docker login -u $REGISTRY_USER -p $REGISTRY_PASS $REPOSITORY
                   echo "Building the Docker image..."
-                  docker build -t $CONTAINER_NAME:$BUILD_NUMBER .
+                  docker build -t $REPOSITORY/$CONTAINER_NAME:$BUILD_NUMBER .
                   docker image ls
                   '''
                 }
