@@ -1,7 +1,7 @@
 pipeline {
    agent any
    environment {
-      REPOSITORY = '192.168.16.100:8085'
+      REPOSITORY = '192.168.16.22:5000'
       PCC_CONSOLE_URL = "https://asia-southeast1.cloud.twistlock.com/aws-singapore-961150750"
       CONTAINER_NAME = "ubuntu"
    }
