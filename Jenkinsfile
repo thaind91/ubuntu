@@ -16,13 +16,17 @@ pipeline {
 
          stage('Build') {
             steps {
-               withCredentials([usernamePassword(credentialsId: 'docker_registry_creds', passwordVariable: 'REGISTRY_PASS', usernameVariable: 'REGISTRY_USER')]) {                
-                  sh ''' 
-                  docker login -u $REGISTRY_USER -p $REGISTRY_PASS $REPOSITORY
-                  echo "Building the Docker image..."
-                  docker build -t $REPOSITORY/$CONTAINER_NAME:$BUILD_NUMBER .
-                  docker image ls
-                  '''
+               withDockerRegistry(credentialsId: 'Docker-hub', url: 'https://index.docker.io/v1/') {
+                   // some block
+                  sh 'docker build -t thaind91/ubuntu:v1.0 .'
+                  sh 'docker push -t thaind91/ubuntu:v1.0 .'
+                 // {                
+                 // sh ''' 
+                 // docker login -u $REGISTRY_USER -p $REGISTRY_PASS $REPOSITORY
+                 // echo "Building the Docker image..."
+                 // docker build -t $REPOSITORY/$CONTAINER_NAME:$BUILD_NUMBER .
+                 // docker image ls
+                 // '''
                 }
             }
          }
