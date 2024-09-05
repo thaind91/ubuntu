@@ -19,7 +19,7 @@ pipeline {
                withDockerRegistry(credentialsId: 'Docker-hub', url: 'https://index.docker.io/v1/') {
                    // some block
                   sh 'docker build -t thaind91/ubuntu:v1.0 .'
-                  sh 'docker push -t thaind91/ubuntu:v1.0 .'
+                  sh 'docker push thaind91/ubuntu:v1.0 .'
                  // {                
                  // sh ''' 
                  // docker login -u $REGISTRY_USER -p $REGISTRY_PASS $REPOSITORY
