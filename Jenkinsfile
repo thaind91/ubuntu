@@ -4,8 +4,6 @@ pipeline {
       REPOSITORY = '192.168.16.22:5000'
       PCC_CONSOLE_URL = "https://asia-southeast1.cloud.twistlock.com/aws-singapore-961150750"
       CONTAINER_NAME = "ubuntu"
-      REGISTRY_PASS = 'admin'
-      REGISTRY_USER = 'admin'
    }
     stages {
          stage('Clone repository') {
@@ -16,10 +14,7 @@ pipeline {
 
          stage('Build') {
             steps {
-              withCredentials([usernamePassword(credentialsId: 'Docker-Private-Registry', passwordVariable: 'REGISTRY_PASS', usernameVariable: 'REGISTRY_USER')])  {
-                 // sh 'docker build -t thaind91/ubuntu:v1.0 .'
-                //  sh 'docker push thaind91/ubuntu:v1.0 .'
-                 // {                
+              withCredentials([usernamePassword(credentialsId: 'Docker-Private-Registry', passwordVariable: 'REGISTRY_PASS', usernameVariable: 'REGISTRY_USER')])  {              
                   sh ''' 
                   docker login -u $REGISTRY_USER -p $REGISTRY_PASS $REPOSITORY
                   echo "Building the Docker image..."
