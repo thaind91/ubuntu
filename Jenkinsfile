@@ -4,6 +4,8 @@ pipeline {
       REPOSITORY = '192.168.16.22:5000'
       PCC_CONSOLE_URL = "https://asia-southeast1.cloud.twistlock.com/aws-singapore-961150750"
       CONTAINER_NAME = "ubuntu"
+      REGISTRY_PASS = 'admin'
+      REGISTRY_USER = 'admin'
    }
     stages {
          stage('Clone repository') {
