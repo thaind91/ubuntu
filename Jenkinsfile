@@ -28,9 +28,9 @@ pipeline {
          stage('Container Scan') {
             steps {
                script{
-                  try {
+                  //try {
                     prismaCloudScanImage ca: '', cert: '', dockerAddress: 'unix:///var/run/docker.sock', ignoreImageBuildTime: true, image: "$REPOSITORY/$CONTAINER_NAME:$BUILD_NUMBER", key: '', logLevel: 'debug', podmanPath: '', project: '', resultsFile: 'prisma-cloud-scan-results.json'
-                  } //finally {
+                  //} //finally {
                     //prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
                  // }
                }
