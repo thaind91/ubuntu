@@ -25,35 +25,35 @@ pipeline {
             }
          }
 
-        // stage('Container Scan') {
-        //    steps {
-        //       script{
-        //           try {
-        //              prismaCloudScanImage ca: '', cert: '', dockerAddress: 'unix:///var/run/docker.sock', image: '$REPOSITORY/$CONTAINER_NAME:1', key: '', logLevel: 'info', podmanPath: '', project: '', resultsFile: 'prisma-cloud-scan-results.json', sbom: ''
-        //            //prismaCloudScanImage ca: '', cert: '', dockerAddress: 'unix:///var/run/docker.sock', ignoreImageBuildTime: true, image: "$REPOSITORY/$CONTAINER_NAME:$BUILD_NUMBER", key: '', logLevel: 'debug', podmanPath: '', project: '', resultsFile: 'prisma-cloud-scan-results.json'
-       //           } finally {
-        //            prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
-        //          }
-        //       }
-        //    }
-       //  }     
-
-
-        stage('PrismaCloudScan') {
+         stage('Container Scan') {
             steps {
-                // Scan the image
-                prismaCloudScanImage ca: '',
-                cert: '',
-                dockerAddress: 'unix:///var/run/docker.sock',
-                image: 'ubuntu:latest',
-                key: '',
-                logLevel: 'info',
-                podmanPath: '',
-                project: '',
-                resultsFile: 'prisma-cloud-scan-results.json',
-                ignoreImageBuildTime:true
+               script{
+                   try {
+                   //   prismaCloudScanImage ca: '', cert: '', dockerAddress: 'unix:///var/run/docker.sock', image: '$REPOSITORY/$CONTAINER_NAME:1', key: '', logLevel: 'info', podmanPath: '', project: '', resultsFile: 'prisma-cloud-scan-results.json', sbom: ''
+                      prismaCloudScanImage ca: '', cert: '', dockerAddress: 'unix:///var/run/docker.sock', ignoreImageBuildTime: true, image: "$REPOSITORY/$CONTAINER_NAME:$BUILD_NUMBER", key: '', logLevel: 'debug', podmanPath: '', project: '', resultsFile: 'prisma-cloud-scan-results.json'
+                  } finally {
+                    prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
+                  }
+               }
             }
-        }
+         }     
+
+
+ //       stage('PrismaCloudScan') {
+ //           steps {
+ //               // Scan the image
+ //               prismaCloudScanImage ca: '',
+ //               cert: '',
+ //               dockerAddress: 'unix:///var/run/docker.sock',
+ //               image: 'ubuntu:latest',
+ //               key: '',
+ //               logLevel: 'info',
+ //               podmanPath: '',
+ //               project: '',
+ //               resultsFile: 'prisma-cloud-scan-results.json',
+ //               ignoreImageBuildTime:true
+ //           }
+ //       }
    
 
          stage('Push Image') {
