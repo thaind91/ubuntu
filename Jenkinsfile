@@ -12,25 +12,25 @@ pipeline {
             }
          }      
 
-         stage('Build') {
-            steps {
-              withCredentials([usernamePassword(credentialsId: 'Docker-Private-Registry', passwordVariable: 'REGISTRY_PASS', usernameVariable: 'REGISTRY_USER')])  {              
-                  sh ''' 
-                  docker login -u $REGISTRY_USER -p $REGISTRY_PASS $REPOSITORY
-                  echo "Building the Docker image..."
-                  docker build -t $REPOSITORY/$CONTAINER_NAME:$BUILD_NUMBER .
-                  docker image ls
-                  '''
-                }
-            }
-         }
+        // stage('Build') {
+        //    steps {
+        //      withCredentials([usernamePassword(credentialsId: 'Docker-Private-Registry', passwordVariable: 'REGISTRY_PASS', usernameVariable: 'REGISTRY_USER')])  {              
+        //          sh ''' 
+        //          docker login -u $REGISTRY_USER -p $REGISTRY_PASS $REPOSITORY
+        //          echo "Building the Docker image..."
+        //          docker build -t $REPOSITORY/$CONTAINER_NAME:$BUILD_NUMBER .
+        //          docker image ls
+        //          '''
+        //        }
+        //    }
+        // }
 
          stage('Container Scan') {
             steps {
                script{
                    try {
-                   //   prismaCloudScanImage ca: '', cert: '', dockerAddress: 'unix:///var/run/docker.sock', image: '$REPOSITORY/$CONTAINER_NAME:1', key: '', logLevel: 'info', podmanPath: '', project: '', resultsFile: 'prisma-cloud-scan-results.json', sbom: ''
-                      prismaCloudScanImage ca: '', cert: '', dockerAddress: 'unix:///var/run/docker.sock', ignoreImageBuildTime: true, image: "$REPOSITORY/$CONTAINER_NAME:$BUILD_NUMBER", key: '', logLevel: 'debug', podmanPath: '', project: '', resultsFile: 'prisma-cloud-scan-results.json'
+                   //   prismaCloudScanImage ca: '', cert: '', dockerAddress: 'unix:///var/run/docker.sock', image: '$REPOSITORY/$CONTAINER_NAME:$BUILD_NUMBER', key: '', logLevel: 'info', podmanPath: '', project: '', resultsFile: 'prisma-cloud-scan-results.json', sbom: ''
+                      prismaCloudScanImage ca: '', cert: '', dockerAddress: 'unix:///var/run/docker.sock', ignoreImageBuildTime: true, image: "ubuntu:latest", key: '', logLevel: 'debug', podmanPath: '', project: '', resultsFile: 'prisma-cloud-scan-results.json'
                   } finally {
                     prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
                   }
@@ -60,7 +60,8 @@ pipeline {
             steps {
                   sh ''' 
                   echo "Image push into registry"
-                  docker push $REPOSITORY/$CONTAINER_NAME:$BUILD_NUMBER
+                 // docker push $REPOSITORY/$CONTAINER_NAME:$BUILD_NUMBER
+                  docker push ubuntu:latest
                   '''
             }
          }
