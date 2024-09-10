@@ -58,9 +58,9 @@ pipeline {
 
          stage('Push Image') {
             steps {
+               //               docker push $REPOSITORY/$CONTAINER_NAME:$BUILD_NUMBER
                   sh ''' 
                   echo "Image push into registry"
-                 // docker push $REPOSITORY/$CONTAINER_NAME:$BUILD_NUMBER
                   docker push ubuntu:latest
                   '''
             }
