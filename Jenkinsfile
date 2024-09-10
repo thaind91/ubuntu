@@ -61,6 +61,7 @@ pipeline {
                //               docker push $REPOSITORY/$CONTAINER_NAME:$BUILD_NUMBER
                   sh ''' 
                   echo "Image push into registry"
+                  docker login -u $REGISTRY_USER -p $REGISTRY_PASS $REPOSITORY
                   docker push ubuntu:latest
                   '''
             }
